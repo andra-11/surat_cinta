@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Surat Cinta Untukmu 💌</title>
   <style>
     * {
@@ -12,10 +13,10 @@
 
     body {
       font-family: 'Segoe UI', sans-serif;
-      height: 100vh;
       background-color: #fff0f5;
-      overflow: hidden;
       position: relative;
+      overflow-x: hidden;
+      padding: 20px;
     }
 
     .emoji-bg {
@@ -30,6 +31,7 @@
       transform: translateY(-50%);
       width: 200%;
       z-index: 0;
+      pointer-events: none;
     }
 
     @keyframes scrollEmoji {
@@ -38,11 +40,12 @@
     }
 
     .envelope {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      position: relative;
       z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       cursor: pointer;
     }
 
@@ -59,10 +62,11 @@
       background: white;
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      padding: 40px;
+      padding: 30px 20px;
+      width: 90%;
       max-width: 600px;
       text-align: center;
-      position: absolute;
+      position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0);
@@ -94,33 +98,35 @@
     }
 
     h1 {
-      font-size: 28px;
+      font-size: 24px;
       margin-bottom: 10px;
     }
 
     p {
-      font-size: 18px;
+      font-size: 16px;
       margin: 10px 0;
+      line-height: 1.4;
     }
 
     .images {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 10px;
       margin-top: 20px;
       flex-wrap: wrap;
     }
 
     .images img {
-      width: 100px;
-      height: 150px;
-      object-fit: cover;
+      width: 28vw;
+      max-width: 100px;
+      height: auto;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
 
     audio {
       margin-top: 20px;
+      width: 100%;
     }
 
     .falling-heart {
@@ -131,6 +137,7 @@
       animation: fall 6s linear infinite;
       z-index: 1;
       user-select: none;
+      pointer-events: none;
     }
 
     @keyframes fall {
@@ -141,6 +148,15 @@
       100% {
         transform: translateY(100vh) rotate(360deg);
         opacity: 0;
+      }
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 20px;
+      }
+      p {
+        font-size: 15px;
       }
     }
   </style>
@@ -170,14 +186,14 @@
       <img src="image3.jpg" alt="Foto 3">
     </div>
 
-    <!-- Audio tidak autoplay -->
-    <audio id="bgMusic">
+    <!-- Audio -->
+    <audio id="bgMusic" controls>
       <source src="surat cinta starla.mp3" type="audio/mpeg">
       Browser tidak mendukung audio.
     </audio>
   </div>
 
-  <!-- Hati jatuh -->
+  <!-- Efek hati jatuh -->
   <script>
     const heartEmojis = ['❤️', '💖', '💘', '💕'];
     for (let i = 0; i < 30; i++) {
@@ -191,7 +207,6 @@
       document.body.appendChild(heart);
     }
 
-    // Logika popup dan audio
     const envelope = document.getElementById('envelope');
     const popup = document.getElementById('popup');
     const overlay = document.getElementById('overlay');
@@ -200,14 +215,14 @@
     envelope.addEventListener('click', () => {
       popup.classList.add('show');
       overlay.classList.add('show');
-      bgMusic.play(); // Musik diputar saat klik amplop
+      bgMusic.play();
     });
 
     overlay.addEventListener('click', () => {
       popup.classList.remove('show');
       overlay.classList.remove('show');
-      bgMusic.pause();  // Musik berhenti saat popup ditutup
-      bgMusic.currentTime = 0; // Musik direset ke awal
+      bgMusic.pause();
+      bgMusic.currentTime = 0;
     });
   </script>
 
